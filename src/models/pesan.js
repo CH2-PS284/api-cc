@@ -10,7 +10,7 @@ const DB_NAME = process.env.DB_NAME
 
 const sequelize = new Sequelize(`mysql://${DB_USER}:${DB_PASS}@${DB_HOST}:3306/${DB_NAME}`)
 
-const Pesan = sequelize.define('pesan', {
+const Pesan = sequelize.define('pesans', {
     id_pesan: {
         type: DataTypes.STRING, 
         primaryKey: true, 
@@ -40,6 +40,6 @@ const Pesan = sequelize.define('pesan', {
         allowNull: false
  
      },
-},{sequelize, modelName:'pesan'})
+},{sequelize, modelName:'pesans'})
 
 module.exports = Pesan

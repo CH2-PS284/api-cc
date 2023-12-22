@@ -40,7 +40,7 @@ const User = sequelize.define('users', {
         allowNull: false
  
      },
-},{sequelize, modelName:'user'})
+},{sequelize, modelName:'users'})
 Pesan.belongsTo(User, {
    foreignKey: 'id_user', 
    onDelete: 'CASCADE',  

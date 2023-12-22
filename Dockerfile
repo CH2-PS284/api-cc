@@ -22,7 +22,7 @@ COPY . .
 
 # Make port 3000 available to the world outside this container
 
-EXPOSE 9000
+EXPOSE 8080
 
 ENV DB_NAME=capstone
 ENV DB_PORT=3306

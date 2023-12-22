@@ -10,7 +10,7 @@ const DB_NAME = process.env.DB_NAME
 
 const sequelize = new Sequelize(`mysql://${DB_USER}:${DB_PASS}@${DB_HOST}:3306/${DB_NAME}`)
 
-const RumahSakit = sequelize.define('rumah_sakit', {
+const RumahSakit = sequelize.define('rumah_sakits', {
     id_rumah_sakit: {
         type: DataTypes.STRING, 
         primaryKey: true, 
@@ -52,7 +52,7 @@ const RumahSakit = sequelize.define('rumah_sakit', {
         allowNull: false
  
      },
-},{sequelize, modelName:'rumah_sakit'})
+},{sequelize, modelName:'rumah_sakits'})
 Pesan.belongsTo(RumahSakit, {
    foreignKey: 'id_rumah_sakit', 
    onDelete: 'CASCADE',  
