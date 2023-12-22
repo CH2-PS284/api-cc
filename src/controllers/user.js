@@ -9,20 +9,20 @@ const register = async (req, res) => {
     try {
         const { username, password, no_hp, nama } = req.body
         const searchUserInDatabase = await User.count({ where: { username } })
-        if (searchUserInDatabase > 0) return res.status(400).json({ message: 'username sudah digunakan' })
+        if (searchUserInDatabase > 0) return res.status(200).json({ message: 'username sudah digunakan', status: 0 })
         const searchUserInDatabaseByNo_hp = await User.count({ where: { no_hp } })
-        if (searchUserInDatabaseByNo_hp > 0) return res.status(400).json({ message: 'nomor hp sudah digunakan' })
-        const hashPassword = await bcrypt.hash(password, 10)
+        if (searchUserInDatabaseByNo_hp > 0) return res.status(200).json({ message: 'nomor hp sudah digunakan', status: 0 })
+        // const hashPassword = await bcrypt.hash(password, 10)
         const createUser = User.create({
             id_user: uuidv4(),
-            nama, username, no_hp, password: hashPassword
+            nama, username, no_hp, password
         })
 
-        if (!createUser) return res.status(400).json({ message: 'register gagal' })
-        return res.status(200).json({ message: 'register berhasil' })
+        if (!createUser) return res.status(400).json({ message: 'register gagal', status: 0 })
+        return res.status(200).json({ message: 'register berhasil', id: username, status: 1 })
 
     } catch (error) {
-        return res.status(500).json({ message: 'internal server error', error: error.message })
+        return res.status(500).json({ message: 'internal server error', error: error.message, status: 0 })
     }
 }
 const login = async (req, res) => {
@@ -31,7 +31,7 @@ const login = async (req, res) => {
         const searchUserInDatabase = await User.findOne({ where: { username } })
         if (!searchUserInDatabase) return res.status(400).json({ message: 'username dan password salah' })
         const userPassword = searchUserInDatabase.dataValues.password
-        const matchPassword = await bcrypt.compare(password, userPassword)
+        const matchPassword = (userPassword===password)
         if (!matchPassword) return res.status(400).json({ message: 'username dan password salah' })
         const SECRET_KEY = process.env.SECRET_KEY
         const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '1d' })

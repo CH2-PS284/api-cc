@@ -3,14 +3,14 @@ const dotenv = require('dotenv')
 const Pesan = require('./pesan.js')
 dotenv.config()
 
-const DB_HOST = process.env.DB_HOST
-const DB_USER = process.env.DB_USER
-const DB_PASS = process.env.DB_PASS
-const DB_NAME = process.env.DB_NAME
+const DB_HOST = '34.16.40.205'
+const DB_USER = 'root'
+const DB_PASS = 'password123456789'
+const DB_NAME = 'capstone'
 
 const sequelize = new Sequelize(`mysql://${DB_USER}:${DB_PASS}@${DB_HOST}:3306/${DB_NAME}`)
 
-const User = sequelize.define('user', {
+const User = sequelize.define('users', {
     id_user: {
         type: DataTypes.STRING, 
         primaryKey: true, 

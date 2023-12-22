@@ -23,7 +23,7 @@ app.use(pesanRouter)
 
 app.get('/', (req, res) => res.status(200).json({message:'hello world'}))
 
-app.listen(process.env.PORT, () => {
+app.listen(port, () => {
     console.log('server running')
     connection()
 })
