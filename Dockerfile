@@ -1,28 +1,36 @@
-ARG NODE_VERSION=lts
-FROM node:${NODE_VERSION}-alpine
+# Dockerfile
 
-# FROM gcr.io/cloud-builders/gcloud
+# Use an official Node.js runtime as a parent image
+
+FROM node:18-bullseye-slim
+
+# Set the working directory to /app
 
 WORKDIR /app
 
-# Salin package.json dan yarn.lock ke dalam direktori kerja
-COPY package.json ./
+# Copy package.json and package-lock.json to the working directory
 
-# Install dependensi menggunakan Yarn
+COPY package\*.json ./
+
+# Install the project dependencies
+
 RUN npm install
 
-# Salin seluruh kode sumber ke dalam direktori kerja
-COPY ./ .
+# Copy the content of the local src directory to the working directory
 
-# ENV HOST 0.0.0.0
-ENV DB_NAME='capstone'
-ENV DB_PORT='3306'
-ENV DB_HOST='34.16.40.205'
-ENV DB_USER='root'
-ENV DB_PASS='password123456789'
-ENV SECRET_KEY='Password123'
+COPY . .
 
-EXPOSE 5000
+# Make port 3000 available to the world outside this container
 
-# Eksekusi perintah start aplikasi
-CMD ["node", "./src/index.js"]
+EXPOSE 9000
+
+ENV DB_NAME=capstone
+ENV DB_PORT=3306
+ENV DB_HOST=34.16.40.205
+ENV DB_USER=root
+ENV DB_PASS=password123456789
+ENV SECRET_KEY=Password123
+
+# Run the application
+
+CMD ["npm", "start"]
