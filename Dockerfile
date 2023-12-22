@@ -19,4 +19,4 @@ COPY ./ .
 EXPOSE 5000
 
 # Eksekusi perintah start aplikasi
-CMD ["nodemon", "./src/index.js"]
+CMD ["node", "./src/index.js"]
